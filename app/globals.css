@@ -1,26 +1,186 @@
 @import "tailwindcss";
+@import "@heroui/styles";
 
+/* ─── GainTrack Dark Theme ─────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
+
+  /* Core palette */
+  --gt-black:      #0A0A0A;
+  --gt-surface:    #111111;
+  --gt-surface2:   #1A1A1A;
+  --gt-border:     #222222;
+  --gt-muted:      #555555;
+  --gt-text:       #F0F0F0;
+  --gt-text-dim:   #888888;
+  --gt-lime:       #B4FF39;
+  --gt-lime-dim:   #7abf1f;
+  --gt-lime-glow:  rgba(180, 255, 57, 0.15);
+  --gt-red:        #FF4B4B;
+  --gt-amber:      #FFB547;
+  --gt-blue:       #5B9CF6;
+
+  /* HeroUI overrides */
+  --background:              var(--gt-black);
+  --foreground:              var(--gt-text);
+  --primary:                 var(--gt-lime);
+  --primary-foreground:      var(--gt-black);
+  --secondary:               var(--gt-surface2);
+  --secondary-foreground:    var(--gt-text);
+  --muted:                   var(--gt-surface2);
+  --muted-foreground:        var(--gt-text-dim);
+  --border:                  var(--gt-border);
+  --input:                   var(--gt-surface2);
+  --ring:                    var(--gt-lime);
+  --radius:                  0.75rem;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background:    var(--gt-black);
+  --color-surface:       var(--gt-surface);
+  --color-surface2:      var(--gt-surface2);
+  --color-border:        var(--gt-border);
+  --color-muted:         var(--gt-muted);
+  --color-text:          var(--gt-text);
+  --color-dim:           var(--gt-text-dim);
+  --color-lime:          var(--gt-lime);
+  --color-lime-dim:      var(--gt-lime-dim);
+  --color-lime-glow:     var(--gt-lime-glow);
+  --color-danger:        var(--gt-red);
+  --color-warning:       var(--gt-amber);
+  --color-info:          var(--gt-blue);
+  --font-heading:        var(--font-outfit);
+  --font-body:           var(--font-dm-sans);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ─── Base Styles ──────────────────────────────────────────── */
+html, body {
+  background-color: var(--gt-black);
+  color: var(--gt-text);
+  font-family: var(--font-body), 'DM Sans', system-ui, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading), 'Outfit', system-ui, sans-serif;
+  font-weight: 700;
+}
+
+/* ─── Custom Utilities ─────────────────────────────────────── */
+@layer utilities {
+  .safe-bottom {
+    padding-bottom: calc(5rem + env(safe-area-inset-bottom));
+  }
+
+  .font-heading {
+    font-family: var(--font-heading), 'Outfit', system-ui, sans-serif;
+  }
+
+  .text-lime {
+    color: var(--gt-lime);
+  }
+
+  .bg-lime {
+    background-color: var(--gt-lime);
+  }
+
+  .border-lime {
+    border-color: var(--gt-lime);
+  }
+
+  .glow-lime {
+    box-shadow: 0 0 20px var(--gt-lime-glow), 0 0 40px var(--gt-lime-glow);
+  }
+
+  .card-dark {
+    background-color: var(--gt-surface);
+    border: 1px solid var(--gt-border);
+    border-radius: 1rem;
+    padding: 1rem;
+  }
+
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ─── Animations ───────────────────────────────────────────── */
+@keyframes pulse-lime {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+.animate-pulse-lime {
+  animation: pulse-lime 2s ease-in-out infinite;
+}
+
+/* ─── Exercise Animations ──────────────────────────────────── */
+/* SVG transform fix */
+.ex-anim {
+  transform-box: view-box;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ex-anim { animation: none !important; }
+}
+
+@keyframes ex-press {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-16px); }
+}
+@keyframes ex-row {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-50deg); }
+}
+@keyframes ex-ohpress {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-18px); }
+}
+@keyframes ex-curl-l {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-70deg); }
+}
+@keyframes ex-curl-r {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(70deg); }
+}
+@keyframes ex-tricep {
+  from { transform: rotate(40deg); }
+  to   { transform: rotate(-30deg); }
+}
+@keyframes ex-lateral-l {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-55deg); }
+}
+@keyframes ex-lateral-r {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(55deg); }
+}
+@keyframes ex-squat {
+  from { transform: translateY(0); }
+  to   { transform: translateY(22px); }
+}
+@keyframes ex-rdl {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(55deg); }
+}
+@keyframes ex-lunge {
+  from { transform: translateX(0) translateY(0); }
+  to   { transform: translateX(14px) translateY(8px); }
+}
+@keyframes ex-calf {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-9px); }
+}
+@keyframes ex-plank-pulse {
+  from { opacity: 0.55; }
+  to   { opacity: 1; }
+}
+@keyframes ex-torso-rdl {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(55deg); }
 }
