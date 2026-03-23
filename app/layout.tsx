@@ -3,6 +3,7 @@ import { Outfit, DM_Sans } from 'next/font/google'
 import './globals.css'
 import { SwRegister } from '@/components/sw-register'
 import { BottomNav } from '@/components/bottom-nav'
+import { TopBar } from '@/components/top-bar'
 
 const outfit = Outfit({
   variable: '--font-outfit',
@@ -49,8 +50,12 @@ export default function RootLayout({
     >
       <body className="antialiased overscroll-none" style={{ backgroundColor: 'var(--gt-black)', color: 'var(--gt-text)' }}>
         <SwRegister />
+        <TopBar />
         <div className="flex flex-col min-h-[100dvh]">
-          <main className="flex-1 overflow-y-auto scrollbar-none safe-bottom">
+          <main
+            className="flex-1 overflow-y-auto scrollbar-none safe-bottom"
+            style={{ paddingTop: 'calc(env(safe-area-inset-top) + 2.75rem)' }}
+          >
             {children}
           </main>
           <BottomNav />
